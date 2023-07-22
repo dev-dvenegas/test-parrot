@@ -14,7 +14,7 @@ const useStoreActions = () => {
       await dispatch(storeAction());
     };
     handleGetStores();
-  }, []);
+  }, [dispatch]);
 
   return {
     stores,
