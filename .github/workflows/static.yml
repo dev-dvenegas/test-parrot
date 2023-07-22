@@ -53,4 +53,4 @@ jobs:
         uses: actions/deploy-pages@v2
         with:
           name: Deploying to gh-pages
-          path: './build'
+          publish_dir: './build'
