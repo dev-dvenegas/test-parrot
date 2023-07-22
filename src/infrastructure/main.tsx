@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import AppRoutes from "./routes/Routes";
 import { updateTokenFromCookies } from "../application/reducers/loginSlice";
 import { useDispatch } from "react-redux";
@@ -12,9 +12,9 @@ const Main: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppRoutes />
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

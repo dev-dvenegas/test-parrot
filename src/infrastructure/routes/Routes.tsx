@@ -20,7 +20,7 @@ const ProtectedRoute: React.FC<{
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route index path="/" element={<Login />} />
+      <Route path="/" element={<Login />} />
       <Route
         path="products"
         element={
