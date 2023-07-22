@@ -28,8 +28,8 @@ const ProtectedRoute: React.FC<{
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route index path="login" element={<Login />} />
+      {/*<Route path="/" element={<Navigate to="/login" replace />} />*/}
+      <Route index path="/" element={<Login />} />
       <Route
         path="products"
         element={
