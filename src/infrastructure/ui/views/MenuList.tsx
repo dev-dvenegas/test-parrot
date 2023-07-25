@@ -41,7 +41,7 @@ const MenuList: React.FC = () => {
 
   useEffect(() => {
     stores.length > 0 && getProducts(stores[0].uuid);
-  }, [stores]);
+  }, [stores]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
