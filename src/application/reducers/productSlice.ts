@@ -35,6 +35,7 @@ const productSlice = createSlice({
       state,
       action: PayloadAction<UpdateProductResponse>,
     ) => {
+      state.loading = false;
       const { result } = action.payload;
       state.data.forEach((category) => {
         if (category.uuid === result.category.uuid) {

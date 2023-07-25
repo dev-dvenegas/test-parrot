@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { loginSuccess, logout } from "../../../application/reducers/loginSlice";
 import { loginAction, refreshTokenAction } from "./loginActions";
 import { AppDispatch } from "../../application/store/appStore";
 import { useCallback, useEffect } from "react";
@@ -9,6 +8,7 @@ import {
   getTokensFromCookies,
   isTokenValid,
 } from "../../infrastructure/cookies/tokenCookies";
+import { logout } from "../../application/reducers/loginSlice";
 const useLoginActions = () => {
   const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
   const dispatch = useDispatch<AppDispatch>();
@@ -39,12 +39,12 @@ const useLoginActions = () => {
     }
   }, [handleRefreshToken, isTokenValidNow, navigate]);
 
-  // const handleLogout = () => {
-  //   dispatch(logout());
-  // };
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return {
-    // handleLogout,
+    handleLogout,
     handleLogin,
   };
 };

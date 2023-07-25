@@ -7,23 +7,35 @@ import {
 
 interface LoginState {
   isLoggedIn: boolean;
+  loading?: boolean;
+  error?: string | null;
 }
 
 const initialState: LoginState = {
   isLoggedIn: false,
+  loading: false,
+  error: null,
 };
 
 const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
+    fetchStart: (state) => {
+      state.loading = true;
+    },
     loginSuccess: (
       state,
       action: PayloadAction<{ access: string; refresh: string }>,
     ) => {
       const { access, refresh } = action.payload;
       saveTokensToCookies(access, refresh);
+      state.loading = false;
       state.isLoggedIn = true;
+    },
+    fetchError: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
     },
     logout: (state) => {
       state.isLoggedIn = false;
@@ -31,7 +43,6 @@ const loginSlice = createSlice({
     },
     updateTokenFromCookies: (state) => {
       const { token } = getTokensFromCookies();
-      // state.token = token || "";
       state.isLoggedIn = Boolean(token);
     },
     refreshToken: (
@@ -45,6 +56,12 @@ const loginSlice = createSlice({
   },
 });
 
-export const { loginSuccess, logout, updateTokenFromCookies, refreshToken } =
-  loginSlice.actions;
+export const {
+  loginSuccess,
+  logout,
+  updateTokenFromCookies,
+  refreshToken,
+  fetchStart,
+  fetchError,
+} = loginSlice.actions;
 export default loginSlice.reducer;

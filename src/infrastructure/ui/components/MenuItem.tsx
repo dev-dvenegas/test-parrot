@@ -1,5 +1,16 @@
 import React from "react";
 import { Product } from "../../../domain/models/products";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
 
 interface MenuItemProps {
   product: Product;
@@ -8,20 +19,53 @@ interface MenuItemProps {
 
 const MenuItem: React.FC<MenuItemProps> = ({ product, handleAvailability }) => {
   return (
-    <div>
-      <h3>{product.name}</h3>
-      <img src={product.imageUrl} alt={product.name} />
-      <p>Price: {product.price}</p>
-      <p>
-        Status:{" "}
-        {product.availability === "AVAILABLE" ? "Available" : "Not Available"}
-      </p>
-      <button
-        onClick={() => handleAvailability(product.uuid, product.availability)}
-      >
-        {product.availability === "AVAILABLE" ? "Disable" : "Enable"}
-      </button>
-    </div>
+    <Card
+      sx={{
+        height: "100%",
+        // minWidth: 260,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: "secondary.main" }} aria-label="recipe">
+            P
+          </Avatar>
+        }
+        title={product.name}
+        subheader={`Precio: $${product.price}`}
+      />
+      <CardMedia
+        component="div"
+        sx={{
+          // 16:9
+          pt: "56.25%",
+        }}
+        image={product.imageUrl}
+      />
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Typography>{product.description}</Typography>
+      </CardContent>
+      <CardActions>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={product.availability === "AVAILABLE"}
+              color="secondary"
+              onChange={() =>
+                handleAvailability(product.uuid, product.availability)
+              }
+            />
+          }
+          label={
+            product.availability === "AVAILABLE"
+              ? "Disponible"
+              : "No Disponible"
+          }
+        />
+      </CardActions>
+    </Card>
   );
 };
 

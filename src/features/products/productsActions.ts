@@ -16,7 +16,9 @@ export const productsActions =
       const response = await productsService.getProducts(storeId);
       dispatch(fetchSuccess(response));
     } catch (err) {
-      dispatch(fetchError(err.toString()));
+      err.response.data.errors.map((error) => {
+        dispatch(fetchError(error.message.toString()));
+      });
     }
   };
 
@@ -30,6 +32,8 @@ export const updateProductAvailability =
       );
       dispatch(updateAvailability(updatedProduct));
     } catch (err) {
-      dispatch(fetchError(err.toString()));
+      err.response.data.errors.map((error) => {
+        dispatch(fetchError(error.message.toString()));
+      });
     }
   };
