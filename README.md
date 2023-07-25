@@ -1,70 +1,99 @@
-# Getting Started with Create React Main
+# Mi Proyecto React con TypeScript
 
-This project was bootstrapped with [Create React Main](https://github.com/facebook/create-react-app).
+Este proyecto fue creado con [Create React App](https://github.com/facebook/create-react-app) y TypeScript.
 
-## Available Scripts
+## Contenido
 
-In the project directory, you can run:
+- [Scripts Disponibles](#scripts-disponibles)
+  - [npm start](#npm-start)
+  - [npm test](#npm-test)
+  - [npm run build](#npm-run-build)
+  - [npm run eject](#npm-run-eject)
+- [Despliegue](#despliegue)
+  - [GitHub Pages](#github-pages)
+  - [Servidor Node.js](#servidor-nodejs)
+
+## Scripts Disponibles
+
+En el directorio del proyecto, puedes ejecutar:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Ejecuta la aplicación en modo de desarrollo.\
+Abre [http://localhost:3000](http://localhost:3000) para verlo en el navegador.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+La página se recargará si haces modificaciones.\
+También verás cualquier lint error en la consola.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Inicia el corredor de pruebas en el modo interactivo de observación.\
+Para más información, mira la sección sobre [running tests](https://facebook.github.io/create-react-app/docs/running-tests) para más información.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Construye la aplicación para producción en la carpeta `build`.\
+Agrupa correctamente React en modo de producción y optimiza la construcción para obtener el mejor rendimiento.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+La construcción es minificada y los nombres de los archivos incluyen los hashes.\
+Tu aplicación está lista para ser desplegada!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para más información, mira la sección sobre [deployment](https://facebook.github.io/create-react-app/docs/deployment).
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Nota: esta es una operación unidireccional. Una vez que hagas `eject`, ¡no puedes volver atrás!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Si no estás satisfecho con la herramienta de construcción y las opciones de configuración, puedes hacer `eject` en cualquier momento. Este comando eliminará la dependencia de construcción de tu proyecto.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Despliegue
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### GitHub Pages
 
-## Learn More
+Este proyecto está configurado para desplegarse en GitHub Pages. Puedes ver la versión más reciente del proyecto en [https://dev-dvenegas.github.io/test-parrot/#](https://dev-dvenegas.github.io/test-parrot/#/products).
 
-You can learn more in the [Create React Main documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+La integración continua (CI) está configurada para desplegar automáticamente los cambios a GitHub Pages.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Servidor Node.js
 
-### Code Splitting
+Si prefieres desplegar el proyecto en un servidor Node.js, sigue estos pasos:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Construye el proyecto con `npm run build`. Esto creará una carpeta `build` con los archivos estáticos de tu aplicación.
+2. Mueve la carpeta `build` a tu servidor.
+3. En tu servidor, instala `express` con `npm install express`.
+4. Crea un archivo `server.js` en la raíz de tu proyecto con el siguiente contenido:
 
-### Analyzing the Bundle Size
+```javascript
+const express = require('express');
+const path = require('path');
+const app = express();
+const port = process.env.PORT || 5000;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+// Sirve los archivos estáticos de la carpeta build
+app.use(express.static(path.join(__dirname, 'build')));
 
-### Making a Progressive Web Main
+// Maneja cualquier solicitud que no coincida con las rutas anteriores
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+app.listen(port, () => {
+  console.log(`Server is up and running on port ${port}`);
+});
+```
 
-### Advanced Configuration
+5. Agrega un script a tu `package.json` para iniciar el servidor:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```json
+"scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject",
+  "start:server": "node server.js"
+}
+```
 
-### Deployment
+6. Ahora puedes construir tu aplicación con `npm run build` y luego iniciar el servidor con `npm run start:server`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Recuerda que debes tener Node.js y npm instalados en tu servidor para seguir estos pasos.
